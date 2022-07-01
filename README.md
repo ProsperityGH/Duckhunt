@@ -1,10 +1,14 @@
 # Duckhunt
 
-### Informatie Game
-Welkom bij duckhunt!, Schiet zoveel eenden als je kunt. Elke keer dat je schiet is er een cooldown van een halve seconde. Succes!
+### About the Game
+Welcome to duckhunt!, Shoot as many ducks as you can. Everytime you shoot there is cooldown of half a second. Good luck!
+
+(This was an schoolproject)
 
 ### Controls
-Linkermuisknop: Schiet (als je schiet kan je voor 500ms niet weer schieten)
+Left mouse button: shoot (every 500ms there is a cooldown)
 
 ### Screenshots
-Kijk de "Screenshots" map voor screenshots
+![image](/screenshots/screenshot1.png)
+![image](/screenshots/screenshot2.png)
+![image](/screenshots/screenshot3.png)
