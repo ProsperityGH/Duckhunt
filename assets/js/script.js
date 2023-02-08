@@ -37,10 +37,23 @@ var score = 0;
 var scoreboard
 var wait = 0;
 
-function moveDucks() {
-  for (a = 1; a < 5; a++) {
-    document.getElementById("duck" + a).style.top = Math.floor(Math.random() * 500 + 1) + "px";
-    document.getElementById("duck" + a).style.left = Math.floor(Math.random() * 1300 + 1) + "px";
+function moveDucks(maxHeight = window.innerHeight * 0.5) {
+  for (let a = 1; a < 5; a++) {
+    let viewportHeight = window.innerHeight;
+    let viewportWidth = window.innerWidth;
+
+    let duckTop = Math.floor(Math.random() * maxHeight + viewportHeight * 0.1);
+    let duckLeft = Math.floor(Math.random() * viewportWidth * 0.8 + viewportWidth * 0.1);
+
+    let duck = document.getElementById("duck" + a);
+    duck.style.top = duckTop + "px";
+    duck.style.left = duckLeft + "px";
+
+    if (duckLeft > viewportWidth / 2) {
+      duck.style.transform = "scaleX(1)";
+    } else {
+      duck.style.transform = "scaleX(-1)";
+    }
   }
 }
 
@@ -48,7 +61,6 @@ var moveDuckIntervalId = null;
 
 var highscore = -1;
 function start() {
-  
   showPage(1);
 
   score = 0;
@@ -64,17 +76,15 @@ function start() {
   var menu = new Audio("https://fi.zophar.net/soundfiles/nintendo-nes-nsf/duck-hunt/2%20-%20Duck%20Hunt%20Intro.mp3");
   menu.play();
 
-  fetch("./data.txt").then(x => x.text()).then(y => showHighScore(y));
-
-  function showHighScore(_highscore) {
-    highscore = _highscore;
-    document.getElementById("highscore").innerHTML = highscore;
+  if (localStorage.getItem("highScore")) {
+    highscore = localStorage.getItem("highScore");
+  } else {
+    highscore = 0;
   }
+  document.getElementById("highscore").innerHTML = highscore;
 
-  var timeLeft = 29;
+  var timeLeft = 30;
   var timer = document.getElementById('timer');
-  
-  var timerId = setInterval(countdown, 1000);
   
   function countdown() {
     if (timeLeft == 0) {
@@ -85,23 +95,40 @@ function start() {
       timeLeft--;
     }
   }
+  
+  var timerId = setInterval(countdown, 1000);
+  countdown();
+}
+
+function updateHighScore() {
+  if (score > highscore) {
+    highscore = score;
+    document.getElementById("highscore").innerHTML = highscore;
+    localStorage.setItem("highscore", highscore);
+  }
 }
 
 function wacht() {
   wait = 0;
 }
 
+let lastShotTime = 0;
+
 function raak(value, id) {
-  if (wait == 0) {
-    score = score + value;
-    scoreboard.innerHTML = score;
-    if ((score > highscore) && (highscore != -1)) {
-      highscore = score;
-      document.getElementById("highscore").innerHTML = highscore;
-      fetch("./savehighscore.php?highscore=" + highscore);
-    }
-    wait = 1;
-    setTimeout(wacht, 500);
+  let currentTime = Date.now();
+
+  if (currentTime - lastShotTime < 500) {
+    return;
+  }
+
+  lastShotTime = currentTime;
+  
+  score = score + value;
+  scoreboard.innerHTML = score;
+  if ((score > highscore) && (highscore != -1)) {
+    highscore = score;
+    document.getElementById("highscore").innerHTML = highscore;
+    localStorage.setItem("highScore", highscore);
   }
 
   var gunshot = new Audio("https://fi.zophar.net/soundfiles/nintendo-nes-nsf/duck-hunt/10%20-%20SFX%20Gun%20Shot.mp3");
