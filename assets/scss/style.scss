@@ -58,7 +58,7 @@ body {
 }
 #container {
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
   padding-top: 20px;
   background-color: black;
   color: #eb9f22;
@@ -79,4 +79,12 @@ body {
     font-family: pixeloid;
     border: 2px solid #eb9f22;
   }
+}
+
+@media screen and (max-width: 460px) {
+
+  .logo {
+    display: none;
+  }
+
 }

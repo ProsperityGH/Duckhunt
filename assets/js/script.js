@@ -11,7 +11,7 @@ function showPage(pageId, data=null) {
     break;
     case 2: page += 
     '<div id="container"> \
-      <img src="https://i.ibb.co/GTzrZb8/title.png" alt="logo"> \
+      <img src="https://i.ibb.co/GTzrZb8/title.png" class="logo" alt="logo"> \
       <h2>Welcome to duckhunt!, Shoot as many ducks as you can. Everytime you shoot there is cooldown of half a second. Good luck!<h2> \
       <button type="button" class="start" onclick="start()">Start</button> \
     </div>'
@@ -19,7 +19,7 @@ function showPage(pageId, data=null) {
     break;
     case 3: page += 
     '<div id="container"> \
-      <img src="https://i.ibb.co/GTzrZb8/title.png" alt="logo"> \
+      <img src="https://i.ibb.co/GTzrZb8/title.png" class="logo" alt="logo"> \
       <h2>Thank you for playing! Click the Restart button if you want to replay the game.<h2> \
       <h2>Your last score: <div id="score">'+score+'</div> <h2> \
       <h2>Your highscore: <div id="highscore">'+highscore+'</div> <h2> \
